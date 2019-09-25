@@ -20,17 +20,14 @@ func set_force(delta):
 	
 	var dir = owner.dir.dir
 	
-	if dir.x:
-		vel.x += speed * dir.x * delta
-		vel.x = clamp(vel.x, -mx_speed, mx_speed)
+	vel.x = set_val(vel.x, dir.x, delta)
+	vel.y = set_val(vel.y, dir.y, delta)
+
+func set_val(v, d, delta):
+	if d:
+		v += speed * d * delta
+		v = clamp(v, -mx_speed, mx_speed)
 	else:
-		vel.x = int(lerp(vel.x, 0, 5* delta))
+		v = int(lerp(v, 0, 5* delta))
 	
-	
-	if dir.y:
-		vel.y += speed * dir.y * delta
-		vel.y = clamp(vel.y, -mx_speed, mx_speed)
-	else:
-		vel.y = int(lerp(vel.y, 0, 5* delta))
-	
-	print(vel)
+	return v
